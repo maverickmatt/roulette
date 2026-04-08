@@ -1,12 +1,12 @@
 {
-    "author": "MakeAwesomeHappen",
+    "author": "Grabber5.0",
     "dependencies": {},
     "keywords": [
         "pebble-app"
     ],
-    "name": "watchface-tutorial",
+    "name": "roulette-wheel",
     "pebble": {
-        "displayName": "Tutorial Watchface",
+        "displayName": "Roulette Wheel",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "native",
@@ -28,6 +28,12 @@
                     "type": "font"
                 },
                 {
+                    "compatibility": "2.7",
+                    "file": "fonts/Jersey10-Regular.ttf",
+                    "name": "FONT_JERSEY_48",
+                    "type": "font"
+                },
+                 {
                     "compatibility": "2.7",
                     "file": "fonts/Jersey10-Regular.ttf",
                     "name": "FONT_JERSEY_24",
