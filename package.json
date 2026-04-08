@@ -1,0 +1,58 @@
+{
+    "author": "MakeAwesomeHappen",
+    "dependencies": {},
+    "keywords": [
+        "pebble-app"
+    ],
+    "name": "watchface-tutorial",
+    "pebble": {
+        "displayName": "Tutorial Watchface",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/empty-center-260-dithered.png",
+                    "name": "WHEEL_NO_CENTER",
+                    "targetPlatforms": [
+                        "chalk",
+                        "gabbro"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/Jersey10-Regular.ttf",
+                    "name": "FONT_JERSEY_56",
+                    "type": "font"
+                },
+                {
+                    "compatibility": "2.7",
+                    "file": "fonts/Jersey10-Regular.ttf",
+                    "name": "FONT_JERSEY_24",
+                    "type": "font"
+                },
+                {
+                    "file": "images/wheel-brown-dithered.png",
+                    "name": "WHEEL",
+                    "targetPlatforms": [
+                        "chalk",
+                        "gabbro"
+                    ],
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "chalk",
+            "gabbro"
+        ],
+        "uuid": "304b22ca-68a7-46f7-87b7-14f2bea7f905",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
