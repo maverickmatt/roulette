@@ -42,8 +42,8 @@ static void main_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   //background
-  //bmptr = gbitmap_create_with_resource(RESOURCE_ID_WHEEL_NO_CENTER);
-  bmptr = gbitmap_create_with_resource(RESOURCE_ID_WHEEL);
+  bmptr = gbitmap_create_with_resource(RESOURCE_ID_WHEEL_NO_CENTER);
+  //bmptr = gbitmap_create_with_resource(RESOURCE_ID_WHEEL);
   mblyr = bitmap_layer_create(bounds);
   bitmap_layer_set_bitmap(mblyr,bmptr);
   layer_add_child(window_layer, bitmap_layer_get_layer(mblyr));
@@ -62,7 +62,7 @@ static void main_window_load(Window *window) {
   s_time_layer = text_layer_create(
       GRect(0, time_y, bounds.size.w, 60));
   text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorWhite);
+  text_layer_set_text_color(s_time_layer, GColorBlack);
   text_layer_set_font(s_time_layer, s_time_font);
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
@@ -70,7 +70,7 @@ static void main_window_load(Window *window) {
   s_date_layer = text_layer_create(
       GRect(0, date_y, bounds.size.w, 30));
   text_layer_set_background_color(s_date_layer, GColorClear);
-  text_layer_set_text_color(s_date_layer, GColorWhite);
+  text_layer_set_text_color(s_date_layer, GColorBlack);
   text_layer_set_font(s_date_layer, s_date_font);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
 
