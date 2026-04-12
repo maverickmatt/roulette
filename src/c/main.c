@@ -3,6 +3,7 @@
 static Window *s_main_window;
 static TextLayer *s_time_layer;
 static TextLayer *s_date_layer;
+static TextLayer *s_batt_layer;
 
 static BitmapLayer *mblyr;
 static GBitmap *bmptr;
@@ -10,6 +11,7 @@ static GBitmap *bmptr;
 // Custom fonts
 static GFont s_time_font;
 static GFont s_date_font;
+static GFont status_font;
 
 static void update_time() {
   // Get a tm structure
@@ -36,6 +38,17 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   update_time();
 }
 
+static void handle_battery(BatteryChargeState charge_state) {
+  static char battery_text[] = "100%";
+
+  if (charge_state.is_charging) {
+    snprintf(battery_text, sizeof(battery_text), "+%d%%", charge_state.charge_percent);
+  } else {
+    snprintf(battery_text, sizeof(battery_text), "%d%%", charge_state.charge_percent);
+  }
+  text_layer_set_text(s_batt_layer, battery_text);
+}
+
 static void main_window_load(Window *window) {
   // Get information about the Window
   Layer *window_layer = window_get_root_layer(window);
@@ -52,12 +65,19 @@ static void main_window_load(Window *window) {
   // Load custom fonts
   s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_JERSEY_56));
   s_date_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_JERSEY_24));
+  // Load system font
+  //s_time_font = fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS);
+  //s_date_font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  status_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD); 
 
   // Center the time + date block vertically
+  int time_height = 56;
   int date_height = 30;
-  int block_height = 56 + date_height;
+  int block_height = time_height + date_height;
   int time_y = (bounds.size.h / 2) - (block_height / 2) - 10;
-  int date_y = time_y + 56;
+  int date_y = time_y + time_height;
+  // Battery % below date, but deliberately off center vertically
+  int batt_y = date_y + date_height - 5;
 
   // Create the time TextLayer — centered in the screen
   s_time_layer = text_layer_create(
@@ -75,9 +95,20 @@ static void main_window_load(Window *window) {
   text_layer_set_font(s_date_layer, s_date_font);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
 
+// Create the battery TextLayer — just below the time
+  s_batt_layer = text_layer_create(
+      GRect(0, batt_y, bounds.size.w, 26));
+  text_layer_set_background_color(s_batt_layer, GColorClear);
+  text_layer_set_text_color(s_batt_layer, GColorWhite);
+  text_layer_set_font(s_batt_layer, status_font);
+  text_layer_set_text_alignment(s_batt_layer, GTextAlignmentCenter);
+
   // Add layers to the Window
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
+  layer_add_child(window_layer, text_layer_get_layer(s_batt_layer));
+
+  handle_battery(battery_state_service_peek());
 }
 
 static void main_window_unload(Window *window) {
@@ -88,6 +119,7 @@ static void main_window_unload(Window *window) {
   // Destroy TextLayers
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_date_layer);
+  text_layer_destroy(s_batt_layer);
 
   // Unload custom fonts
   fonts_unload_custom_font(s_time_font);
@@ -115,6 +147,9 @@ static void init() {
 
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+
+  battery_state_service_subscribe(handle_battery);
+
 }
 
 static void deinit() {
