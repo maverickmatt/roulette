@@ -1,26 +1,15 @@
 {
-    "author": "Grabber Software",
+    "author": "Grabber5.0",
     "dependencies": {},
-    "keywords": [
-        "pebble-app"
-    ],
+    "keywords": [],
     "name": "roulette-wheel",
     "pebble": {
-        "displayName": "Roulette Wheel for Pebble",
+        "displayName": "Roulette Wheel",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "native",
         "resources": {
             "media": [
-                {
-                    "file": "images/empty-center-260-dithered.png",
-                    "name": "WHEEL_NO_CENTER",
-                    "targetPlatforms": [
-                        "chalk",
-                        "gabbro"
-                    ],
-                    "type": "bitmap"
-                },
                 {
                     "compatibility": "2.7",
                     "file": "fonts/Jersey10-Regular.ttf",
@@ -69,5 +58,5 @@
             "watchface": true
         }
     },
-    "version": "1.0.0"
+    "version": "1.1.0"
 }

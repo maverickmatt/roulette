@@ -1,5 +1,7 @@
+.vscode/*
 build/*
 .lock*
 *.bak
 node_modules/pebble-clay/dist.zip
 *.zip
+*Zone.Identifier
